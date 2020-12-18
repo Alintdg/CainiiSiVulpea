@@ -46,9 +46,9 @@ void readMatrix (grid board)                //pentru teste ,urmeaza sa fie initi
                 board[i][j].valoare = 0;
                 board[0][3].valoare=2;      //vulpea
                 board[7][0].valoare=1;      //caine din stanga
-                board[7][2].valoare=1;      //cainele al2-lea
-                board[7][4].valoare=1;      //cainele al3-lea
-                board[7][6].valoare=1;      //cainele al4-lea
+                board[7][2].valoare=1;      //cainele al 2-lea
+                board[7][4].valoare=1;      //cainele al 3-lea
+                board[7][6].valoare=1;      //cainele al 4-lea
 }
 void drawFox( grid board  , int i , int j  )
 {
