@@ -104,7 +104,7 @@ void drawBoard(grid board)
                 setfillstyle(SOLID_FILL,WHITE);
                 floodfill(board[i][j].x+1,board[i][j].y+1,WHITE);
             }
-            if(board[i][j].valoare==2)
+            if(board[i][j].celltype==2)
                 drawFox(board,i,j);
             else if(board[i][j].celltype==1)
                drawDog(board,i,j);
