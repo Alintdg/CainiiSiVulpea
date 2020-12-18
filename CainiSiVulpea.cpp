@@ -11,7 +11,7 @@ float l;                                                  //latura unuei celule
 typedef struct board
 {
     float x,y;                                          //coordonate colt stanga sus pentru fiecare celula
-    int valoare;                                    //pentru a implementa cainii si vulpea
+    int celltype;                                    //pentru a implementa cainii si vulpea
 } grid[8][8];
 
 void readMatrix (grid board);
@@ -43,19 +43,19 @@ void readMatrix (grid board)                //pentru teste ,urmeaza sa fie initi
 {
     for (int i = 0; i < cols; i++)
         for (int j = 0; j < rows; j++)
-                board[i][j].valoare = 0;
-                board[0][3].valoare=2;      //vulpea
-                board[7][0].valoare=1;      //caine din stanga
-                board[7][2].valoare=1;      //cainele al 2-lea
-                board[7][4].valoare=1;      //cainele al 3-lea
-                board[7][6].valoare=1;      //cainele al 4-lea
+                board[i][j].celltype = 0;
+                board[0][3].celltype=2;      //vulpea
+                board[7][0].celltype=1;      //caine din stanga
+                board[7][2].celltype=1;      //cainele al 2-lea
+                board[7][4].celltype=1;      //cainele al 3-lea
+                board[7][6].celltype=1;      //cainele al 4-lea
 }
 void drawFox( grid board  , int i , int j  )
 {
             setcolor(RED);
-            circle(      board[i][j].x+l/2,   board[i][j].y+l/2,   l/6);
-            setfillstyle(   SOLID_FILL,RED   );
-            floodfill(    board[i][j].x+l/2,   board[i][j].y+l/2,     RED);
+            circle( board[i][j].x+l/2, board[i][j].y+l/2, l/6 );
+            setfillstyle(  SOLID_FILL,RED  );
+            floodfill( board[i][j].x+l/2,  board[i][j].y+l/2, RED);
 }
 void drawDog(grid board,int i,int j)
 {
@@ -106,7 +106,7 @@ void drawBoard(grid board)
             }
             if(board[i][j].valoare==2)
                 drawFox(board,i,j);
-            else if(board[i][j].valoare==1)
+            else if(board[i][j].celltype==1)
                drawDog(board,i,j);
         }
 
