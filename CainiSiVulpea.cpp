@@ -6,13 +6,26 @@
 #define cols 8
 #define rows 8
 using namespace std;
-//COMM
+
 float l;                                                  //latura unuei celule
 typedef struct board
 {
     float x,y;                                          //coordonate colt stanga sus pentru fiecare celula
     int celltype;                                    //pentru a implementa cainii si vulpea
 } grid[8][8];
+
+
+struct position {
+    int i, j;
+} moveFrom, moveTo;
+
+
+
+ void moveFox();
+
+void getMoveFromOnClick(int x1, int y1);
+
+void getMoveToOnClick(int x1, int y1);
 
 void readMatrix (grid board);
 
@@ -111,13 +124,17 @@ void drawBoard(grid board)
         }
 
     }
+
+    moveFox();
+
+
 }
 
 void menu()
 {
     int midx,x,y;
 
-    initwindow(720, 720);
+    initwindow(800, 800);
     setbkcolor(CYAN);
     midx = getmaxx() / 2;
 
@@ -135,7 +152,7 @@ void menu()
 
     while(1)
     {
-        if(ismouseclick(WM_LBUTTONDOWN))
+        if( ismouseclick(WM_LBUTTONDOWN) )
        {
             x=mousex();
             y=mousey();
@@ -147,7 +164,66 @@ void menu()
                  drawBoard(  board );
             }
             if(x >240 && x<467 && y>358 && y<412)
-                exit(1);
+                exit(0);
         }
     }
 }
+
+
+void moveFox()
+{
+int x ,y;
+
+
+while(1)
+{
+        if( ismouseclick(WM_LBUTTONDOWN) )
+       {
+            x=mousex();
+            y=mousey();
+            clearmouseclick(WM_LBUTTONDOWN);
+            if( y>=0 && y<=100 && x>=300 && x<=400 )
+            do{
+                   x=mousex();
+                   y=mousey();
+                   clearmouseclick(WM_LBUTTONUP);
+                   cout<<x<<" "<<y<<endl;
+               }while(!ismouseclick(WM_LBUTTONUP));
+               if( y>=100 && y<=200 && x>=200 && x<=300 )
+                    drawFox(board, 1 , 2 );
+
+
+       }
+
+}
+}
+
+
+               /* if( moveFrom.i>=0 && moveFrom.i<=100 && moveFrom.j>=300 && moveFrom.j<=400 )
+                {
+                      registermousehandler(WM_LBUTTONUP, getMoveToOnClick);
+
+                      cout<<moveTo.j<<" "<<moveTo.i;
+
+
+                        //if( moveTo.i>=100 && moveTo.i<=200 && moveTo.j>=200 && moveTo.j<=300)
+
+                }
+}
+*/
+
+
+
+void getMoveFromOnClick(int x1, int y1){
+     moveFrom.j=x1;
+    moveFrom.i=y1;
+
+}
+
+
+ void getMoveToOnClick(int x1, int y1){
+
+     moveTo.j=x1;
+    moveTo.i=y1;
+ }
+
