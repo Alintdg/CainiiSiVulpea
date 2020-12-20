@@ -231,8 +231,8 @@ void moveFox()
 
 void getMoveFromOnClick(int x1, int y1)
 {
-    moveFrom.j=x1;
-    moveFrom.i=y1;
+    moveFrom.j=x1/100;
+    moveFrom.i=y1/100;
 
 }
 
@@ -240,6 +240,6 @@ void getMoveFromOnClick(int x1, int y1)
 void getMoveToOnClick(int x1, int y1)
 {
 
-    moveTo.j=x1;
-    moveTo.i=y1;
+    moveTo.j=x1/100;
+    moveTo.i=y1/100;
 }
