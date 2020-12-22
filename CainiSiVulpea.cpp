@@ -38,10 +38,13 @@ void matrix(grid board);
 void drawBoard(grid board);
 
 void menu();
+
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn ) ;
 
 void PlayGame();
+
 bool didTheFoxWin(grid board);
+
 bool didTheDogwin(grid board);
 
 grid board;
