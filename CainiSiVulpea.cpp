@@ -190,7 +190,7 @@ void moveFox(grid board)
     setcolor(BLUE);
     line(496,0,496,30);
     setcolor(RED);
-    settextstyle (2 , HORIZ_DIR, 60 );
+    settextstyle (2, HORIZ_DIR, 60 );
     outtextxy(getmaxx()/2,l/2,"FOX     MOVES");
     while(!moveDone)
     {
@@ -210,15 +210,15 @@ void moveFox(grid board)
                         y=mousey();
                         clearmouseclick(WM_LBUTTONUP);
                         getMoveToOnClick(x,y);
-                        if(  moveIsValid(board,moveFrom,moveTo,turn) )
+                        if(  moveIsValid(board, moveFrom, moveTo, turn) )
                         {
 
-                            drawFox(board, moveTo.i, moveTo.j );
+                            drawFox(board,  moveTo.i,  moveTo.j );
                             setcolor(WHITE);
-                            setfillstyle(SOLID_FILL , WHITE );
-                            circle(board[moveFrom.i][moveFrom.j].x+l/2,board[moveFrom.i][moveFrom.j].y+l/2,l/4);
-                            floodfill(board[moveFrom.i][moveFrom.j].x+l/2,board[moveFrom.i][moveFrom.j].y+l/2,WHITE);
-                            moveDone=1;
+                            setfillstyle(SOLID_FILL,  WHITE );
+                            circle(board[moveFrom.i][moveFrom.j].x+l/2,board[moveFrom.i][moveFrom.j].y+l/2, l/4);
+                            floodfill(board[moveFrom.i][moveFrom.j].x+l/2,  board[moveFrom.i][moveFrom.j].y+l/2, WHITE);
+                            moveDone = 1;
                         }
                     }
 
@@ -230,8 +230,8 @@ void moveFox(grid board)
         }
     }
     turn=2;
-    board[moveTo.i][moveTo.j].celltype= board[moveFrom.i][moveFrom.j].celltype;
-    board[moveFrom.i][moveFrom.j].celltype=0;
+    board[moveTo.i][moveTo.j].celltype = board[moveFrom.i][moveFrom.j].celltype;
+    board[moveFrom.i][moveFrom.j].celltype = 0;
 }
 void moveDog(grid board)
 {
@@ -262,19 +262,20 @@ void moveDog(grid board)
 
                             drawDog(board, moveTo.i, moveTo.j );
                             setcolor(WHITE);
-                            setfillstyle(SOLID_FILL , WHITE );
+                            setfillstyle(SOLID_FILL, WHITE );
                             circle(board[moveFrom.i][moveFrom.j].x+l/2,board[moveFrom.i][moveFrom.j].y+l/2,l/4);
                             floodfill(board[moveFrom.i][moveFrom.j].x+l/2,board[moveFrom.i][moveFrom.j].y+l/2,WHITE);;
                             moveDone=1;
                         }
                     }
-                }while(!moveDone);
+                }
+                while(!moveDone);
 
             }
 
         }
 
-        }
+    }
     turn=1;
     board[moveTo.i][moveTo.j].celltype= board[moveFrom.i][moveFrom.j].celltype;
     board[moveFrom.i][moveFrom.j].celltype=0;
@@ -297,79 +298,94 @@ void getMoveToOnClick(int x1, int y1)
 
 
 void PlayGame()
-{   setbkcolor(BLUE);
+{
+
+    setbkcolor(BLUE);
     cleardevice();
     readMatrix(board);
     drawBoard(board);
 
     while(turn)
     {
-            if(turn==1) moveFox(board);
-            else if(turn==2) moveDog(board);
-            if(didTheFoxWin(board)) {
+        if(turn==1)
+            moveFox(board);
+        else if(turn==2)
+            moveDog(board);
+        if(didTheFoxWin(board))
+        {
+
+
+                turn =0;
+                cleardevice();
+                setcolor(RED);
+                setbkcolor(BLACK);
+                settextstyle(10, HORIZ_DIR, 7);
+                outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
+                setcolor(WHITE);
+                settextstyle(8, HORIZ_DIR, 5);
+                setbkcolor(BLACK);
+                outtextxy(getmaxy()/2, 300, "TRY AGAIN");
+                outtextxy(getmaxy()/2, 360, "MAIN MENU");
+                outtextxy(getmaxy()/2, 420, "QUIT GAME");
+                while(1) {}
+
+        }
+        if(didTheDogwin(board))
+        {
             turn =0;
-            cleardevice();
-            setcolor(RED);
-            setbkcolor(BLACK);
-            settextstyle(10, HORIZ_DIR, 7);
-            outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
-                    setcolor(WHITE);
-                    settextstyle(8, HORIZ_DIR, 5);
-                    setbkcolor(BLACK);
-                    outtextxy(getmaxy()/2, 300, "TRY AGAIN");
-                    outtextxy(getmaxy()/2, 360, "MAIN MENU");
-                    outtextxy(getmaxy()/2, 420, "QUIT GAME");
-}
-            if(didTheDogwin(board))
-            {
-           turn =0;
             cleardevice();
             setcolor(BROWN);
             setbkcolor(BLACK);
             settextstyle(10, HORIZ_DIR, 7);
             outtextxy(getmaxx()/2,getmaxy()/4,"THE DOGS WON!");
-                    setcolor(WHITE);
-                    settextstyle(8, HORIZ_DIR, 5);
-                    setbkcolor(BLACK);
-                    outtextxy(getmaxy()/2, 300, "TRY AGAIN");
-                    outtextxy(getmaxy()/2, 360, "MAIN MENU");
-                    outtextxy(getmaxy()/2, 420, "QUIT GAME");
-            }
-}
+            setcolor(WHITE);
+            settextstyle(8, HORIZ_DIR, 5);
+            setbkcolor(BLACK);
+            outtextxy(getmaxy()/2, 300, "TRY AGAIN");
+            outtextxy(getmaxy()/2, 360, "MAIN MENU");
+            outtextxy(getmaxy()/2, 420, "QUIT GAME");
+        }
+    }
 }
 
-bool moveIsValid (grid board, position moveFrom, position moveTo, int turn ) {
-    if( board[moveTo.i][moveTo.j].celltype==0 ){ //if the target field is free
-        if( turn == 1 && board[moveFrom.i][moveFrom.j].celltype==2 ){ //if it's a fox & it's its turn
+bool moveIsValid (grid board, position moveFrom, position moveTo, int turn )
+{
+    if( board[moveTo.i][moveTo.j].celltype==0 )  //if the target field is free
+    {
+        if( turn == 1 && board[moveFrom.i][moveFrom.j].celltype==2 )  //if it's a fox & it's its turn
+        {
             if((moveTo.i == moveFrom.i + 1 && moveTo.j == moveFrom.j + 1) ||
-                (moveTo.i == moveFrom.i + 1 && moveTo.j == moveFrom.j - 1) ||
-                (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j + 1) ||
-                (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j - 1) )
-                    return true;
-        } else if(turn == 2 && board[moveFrom.i][moveFrom.j].celltype == 1 ) { //if it's a dog & it's its turn
+                    (moveTo.i == moveFrom.i + 1 && moveTo.j == moveFrom.j - 1) ||
+                    (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j + 1) ||
+                    (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j - 1) )
+                return true;
+        }
+        else if(turn == 2 && board[moveFrom.i][moveFrom.j].celltype == 1 )     //if it's a dog & it's its turn
+        {
             if( (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j + 1) ||
-                (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j - 1) )
-                    return true;
+                    (moveTo.i == moveFrom.i - 1 && moveTo.j == moveFrom.j - 1) )
+                return true;
         }
     }
     return false;
 }
 bool didTheFoxWin(grid board)
 {
-    for(int i=0;i<rows;i++)
-        if(board[7][i].celltype==2) return true;
+    for(int i=0; i<rows; i++)
+        if(board[7][i].celltype==2)
+            return true;
     return false;
 }
 
 bool didTheDogwin(grid board)
 {
-    for(int i=0;i<rows;i++)
-        for(int j=0;j<cols;j++)
+    for(int i=0; i<rows; i++)
+        for(int j=0; j<cols; j++)
             if(
-               (board[i-1][j-1].celltype==1 || i-1<0 || j-1<0)&&
-               (board[i-1][j+1].celltype==1 || i-1<0 || j+1>7)&&
-               (board[i+1][j-1].celltype==1 || i+1>7 || j-1<0)&&
-               (board[i+1][j+1].celltype==1 || i+1>7 || j+1>7)&&
+                (board[i-1][j-1].celltype==1 || i-1<0 || j-1<0)&&
+                (board[i-1][j+1].celltype==1 || i-1<0 || j+1>7)&&
+                (board[i+1][j-1].celltype==1 || i+1>7 || j-1<0)&&
+                (board[i+1][j+1].celltype==1 || i+1>7 || j+1>7)&&
                 board[i][j].celltype==2)
             {
                 return true;
