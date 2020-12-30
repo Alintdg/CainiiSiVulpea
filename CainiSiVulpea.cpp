@@ -7,7 +7,7 @@
 #define rows 8
 using namespace std;
 
-float l;                                                //latura unuei celule
+float l;
 typedef struct board
 {
     float x,y;                                          //coordonate colt stanga sus pentru fiecare celula
@@ -38,13 +38,10 @@ void matrix(grid board);
 void drawBoard(grid board);
 
 void menu();
-
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn ) ;
 
 void PlayGame();
-
 bool didTheFoxWin(grid board);
-
 bool didTheDogwin(grid board);
 
 grid board;
@@ -56,6 +53,7 @@ grid board;
 
 int main()
 {
+    initwindow(800, 800);
 
 
     menu();
@@ -93,10 +91,10 @@ void drawFox( grid board, int i, int j  )
 void drawDog(grid board,int i,int j)
 {
 
-    setcolor(BROWN);
+    setcolor(GREEN);
     circle(board[i][j].x+l/2,board[i][j].y+l/2,l/6);
-    setfillstyle(SOLID_FILL,BROWN);
-    floodfill(board[i][j].x+l/2,board[i][j].y+l/2,BROWN);
+    setfillstyle(SOLID_FILL,GREEN);
+    floodfill(board[i][j].x+l/2,board[i][j].y+l/2,GREEN);
 
 }
 void  matrixcoord(grid board )                    //pentru fiecare patrat din tabla ,indicam coordonatele coltului stanga sus
@@ -151,7 +149,7 @@ void menu()
 {
     int midx,x,y;
 
-    initwindow(800, 800);
+
     setbkcolor(CYAN);
     midx = getmaxx() / 2;
 
@@ -176,6 +174,7 @@ void menu()
             clearmouseclick(WM_LBUTTONDOWN);
             if(x >240 && x<467 && y>258 && y<312)
             {
+                cleardevice();
                 PlayGame();
             }
             if(x >240 && x<467 && y>358 && y<412)
@@ -190,7 +189,7 @@ void moveFox(grid board)
     int x,y;
     bool moveDone=0;
     setlinestyle(0,0,6);
-    setcolor(BLUE);
+    setcolor(DARKGRAY);
     line(496,0,496,30);
     setcolor(RED);
     settextstyle (2, HORIZ_DIR, 60 );
@@ -240,7 +239,7 @@ void moveDog(grid board)
 {
     int x,y;
     bool moveDone=0;
-    setcolor(BROWN);
+    setcolor(GREEN);
     outtextxy(getmaxx()/2,l/2,"DOG   MOVES");
     while(!moveDone)
     {
@@ -303,7 +302,9 @@ void getMoveToOnClick(int x1, int y1)
 void PlayGame()
 {
 
-    setbkcolor(BLUE);
+    int x,y;
+
+    setbkcolor(DARKGRAY);
     cleardevice();
     readMatrix(board);
     drawBoard(board);
@@ -318,26 +319,48 @@ void PlayGame()
         {
 
 
-                turn =0;
-                cleardevice();
-                setcolor(RED);
-                setbkcolor(BLACK);
-                settextstyle(10, HORIZ_DIR, 7);
-                outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
-                setcolor(WHITE);
-                settextstyle(8, HORIZ_DIR, 5);
-                setbkcolor(BLACK);
-                outtextxy(getmaxy()/2, 300, "TRY AGAIN");
-                outtextxy(getmaxy()/2, 360, "MAIN MENU");
-                outtextxy(getmaxy()/2, 420, "QUIT GAME");
-                while(1) {}
+            turn =0;
+            cleardevice();
+            setcolor(RED);
+            setbkcolor(BLACK);
+            settextstyle(10, HORIZ_DIR, 7);
+            outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
+            setcolor(WHITE);
+            settextstyle(8, HORIZ_DIR, 5);
+            setbkcolor(BLACK);
+            outtextxy(getmaxy()/2, 300, "TRY AGAIN");
+            outtextxy(getmaxy()/2, 360, "MAIN MENU");
+            outtextxy(getmaxy()/2, 420, "QUIT GAME");
+            while(1)
+            {
+                if( ismouseclick(WM_LBUTTONDOWN) )
+                {
+                    x=mousex();
+                    y=mousey();
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    if(x >283 && x<514 && y>270 && y<309)
+                    {
+                        cleardevice();
+                        PlayGame();
+                    }
+                    if(x >283 && x<514 && y>330 && y<370)
+                    {
+                        cleardevice();
+                        menu();
+                    }
+                    if(x >283 && x<514 && y>360 && y<430)
+                        exit(0);
+                }
+
+
+            }
 
         }
         if(didTheDogwin(board))
         {
             turn =0;
             cleardevice();
-            setcolor(BROWN);
+            setcolor(GREEN);
             setbkcolor(BLACK);
             settextstyle(10, HORIZ_DIR, 7);
             outtextxy(getmaxx()/2,getmaxy()/4,"THE DOGS WON!");
@@ -347,6 +370,29 @@ void PlayGame()
             outtextxy(getmaxy()/2, 300, "TRY AGAIN");
             outtextxy(getmaxy()/2, 360, "MAIN MENU");
             outtextxy(getmaxy()/2, 420, "QUIT GAME");
+            while(1)
+            {
+                if( ismouseclick(WM_LBUTTONDOWN) )
+                {
+                    x=mousex();
+                    y=mousey();
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    if(x >283 && x<514 && y>270 && y<309)
+                    {
+                        cleardevice();
+                        PlayGame();
+                    }
+                    if(x >283 && x<514 && y>330 && y<370)
+                    {
+                        cleardevice();
+                        menu();
+                    }
+                    if(x >283 && x<514 && y>360 && y<430)
+                        exit(0);
+                }
+
+
+            }
         }
     }
 }
