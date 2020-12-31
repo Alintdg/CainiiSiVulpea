@@ -41,6 +41,7 @@ void menu();
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn ) ;
 
 void PlayGame();
+void PlayGameAgain();
 bool didTheFoxWin(grid board);
 bool didTheDogwin(grid board);
 
@@ -99,14 +100,13 @@ void drawDog(grid board,int i,int j)
 }
 void  matrixcoord(grid board )                    //pentru fiecare patrat din tabla ,indicam coordonatele coltului stanga sus
 {
-    l=(float)(getmaxx()-200)/cols;                              //latura unui patratel
-    //coordonatele coltului stanga sus al tablei
-    board[0][0].x=100;
+    l=(float)(getmaxx()-200)/cols;               //latura unui patratel
+
+    board[0][0].x=100;                                //coordonatele coltului stanga sus al tablei
     board[0][0].y=100;
-    //coordonatele coltului stanga sus  pentru fiecare patrat
     int i,j;
     for(i=0; i<8; i++)
-        for(j=0; j<8; j++)
+        for(j=0; j<8; j++)                           //coordonatele coltului stanga sus  pentru fiecare patrat
         {
             board[i][j].x=board[0][0].x+j*l;
             board[i][j].y=board[0][0].y+i*l;
@@ -148,6 +148,8 @@ void drawBoard(grid board)
 void menu()
 {
     int midx,x,y;
+    setbkcolor(BLACK);
+    cleardevice();
 
 
     setbkcolor(CYAN);
@@ -302,7 +304,7 @@ void getMoveToOnClick(int x1, int y1)
 void PlayGame()
 {
 
-    int x,y;
+    int x,y,click=1;
 
     setbkcolor(DARKGRAY);
     cleardevice();
@@ -320,18 +322,17 @@ void PlayGame()
 
 
             turn =0;
-            cleardevice();
             setcolor(RED);
             setbkcolor(BLACK);
-            settextstyle(10, HORIZ_DIR, 7);
+            settextstyle(10, HORIZ_DIR, 9);
             outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
             setcolor(WHITE);
             settextstyle(8, HORIZ_DIR, 5);
-            setbkcolor(BLACK);
+            setbkcolor(RED);
             outtextxy(getmaxy()/2, 300, "TRY AGAIN");
             outtextxy(getmaxy()/2, 360, "MAIN MENU");
             outtextxy(getmaxy()/2, 420, "QUIT GAME");
-            while(1)
+            while(click)
             {
                 if( ismouseclick(WM_LBUTTONDOWN) )
                 {
@@ -340,13 +341,20 @@ void PlayGame()
                     clearmouseclick(WM_LBUTTONDOWN);
                     if(x >283 && x<514 && y>270 && y<309)
                     {
-                        cleardevice();
+
+                        turn=1;
+                        click=0;
                         PlayGame();
+
+
                     }
                     if(x >283 && x<514 && y>330 && y<370)
                     {
-                        cleardevice();
-                        menu();
+                         turn=1;
+                         click=0;
+                         cleardevice();
+                         menu();
+
                     }
                     if(x >283 && x<514 && y>360 && y<430)
                         exit(0);
@@ -359,18 +367,17 @@ void PlayGame()
         if(didTheDogwin(board))
         {
             turn =0;
-            cleardevice();
             setcolor(GREEN);
             setbkcolor(BLACK);
-            settextstyle(10, HORIZ_DIR, 7);
+            settextstyle(10, HORIZ_DIR, 9);
             outtextxy(getmaxx()/2,getmaxy()/4,"THE DOGS WON!");
             setcolor(WHITE);
             settextstyle(8, HORIZ_DIR, 5);
-            setbkcolor(BLACK);
+            setbkcolor(GREEN);
             outtextxy(getmaxy()/2, 300, "TRY AGAIN");
             outtextxy(getmaxy()/2, 360, "MAIN MENU");
             outtextxy(getmaxy()/2, 420, "QUIT GAME");
-            while(1)
+           while(click)
             {
                 if( ismouseclick(WM_LBUTTONDOWN) )
                 {
@@ -379,13 +386,20 @@ void PlayGame()
                     clearmouseclick(WM_LBUTTONDOWN);
                     if(x >283 && x<514 && y>270 && y<309)
                     {
-                        cleardevice();
+
+                        turn=1;
+                        click=0;
                         PlayGame();
+
+
                     }
                     if(x >283 && x<514 && y>330 && y<370)
                     {
-                        cleardevice();
-                        menu();
+                         turn=1;
+                         click=0;
+                         cleardevice();
+                         menu();
+
                     }
                     if(x >283 && x<514 && y>360 && y<430)
                         exit(0);
@@ -396,6 +410,7 @@ void PlayGame()
         }
     }
 }
+
 
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn )
 {
