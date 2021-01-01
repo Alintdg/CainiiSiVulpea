@@ -38,15 +38,16 @@ void matrix(grid board);
 void drawBoard(grid board);
 
 void menu();
+
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn ) ;
 
 void PlayGame();
-void PlayGameAgain();
+
 bool didTheFoxWin(grid board);
+
 bool didTheDogwin(grid board);
 
 grid board;
-
 
 
 
@@ -195,6 +196,7 @@ void moveFox(grid board)
     line(496,0,496,30);
     setcolor(RED);
     settextstyle (2, HORIZ_DIR, 60 );
+    settextjustify(1,1);
     outtextxy(getmaxx()/2,l/2,"FOX     MOVES");
     while(!moveDone)
     {
@@ -291,7 +293,6 @@ void getMoveFromOnClick(int x1, int y1)
 
 }
 
-
 void getMoveToOnClick(int x1, int y1)
 {
 
@@ -304,13 +305,12 @@ void getMoveToOnClick(int x1, int y1)
 void PlayGame()
 {
 
-    int x,y,click=1;
+    int x,y,click=0;
 
     setbkcolor(DARKGRAY);
     cleardevice();
     readMatrix(board);
     drawBoard(board);
-
     while(turn)
     {
         if(turn==1)
@@ -329,10 +329,10 @@ void PlayGame()
             setcolor(WHITE);
             settextstyle(8, HORIZ_DIR, 5);
             setbkcolor(RED);
-            outtextxy(getmaxy()/2, 300, "TRY AGAIN");
-            outtextxy(getmaxy()/2, 360, "MAIN MENU");
-            outtextxy(getmaxy()/2, 420, "QUIT GAME");
-            while(click)
+            outtextxy(getmaxx()/2, 300, "TRY AGAIN");
+            outtextxy(getmaxx()/2, 360, "MAIN MENU");
+            outtextxy(getmaxx()/2, 420, "QUIT GAME");
+            while(!click)
             {
                 if( ismouseclick(WM_LBUTTONDOWN) )
                 {
@@ -342,9 +342,11 @@ void PlayGame()
                     if(x >283 && x<514 && y>270 && y<309)
                     {
 
-                        turn=1;
-                        click=0;
-                        PlayGame();
+                         turn=1;
+                         click=1;
+                         closegraph();
+                         initwindow(800,800);
+                         PlayGame();
 
 
                     }
@@ -352,8 +354,10 @@ void PlayGame()
                     {
                          turn=1;
                          click=0;
-                         cleardevice();
+                         closegraph();
+                         initwindow(800,800);
                          menu();
+
 
                     }
                     if(x >283 && x<514 && y>360 && y<430)
@@ -377,7 +381,7 @@ void PlayGame()
             outtextxy(getmaxy()/2, 300, "TRY AGAIN");
             outtextxy(getmaxy()/2, 360, "MAIN MENU");
             outtextxy(getmaxy()/2, 420, "QUIT GAME");
-           while(click)
+           while(!click)
             {
                 if( ismouseclick(WM_LBUTTONDOWN) )
                 {
@@ -387,17 +391,21 @@ void PlayGame()
                     if(x >283 && x<514 && y>270 && y<309)
                     {
 
-                        turn=1;
-                        click=0;
-                        PlayGame();
+                         turn=1;
+                         click=1;
+                         closegraph();
+                         initwindow(800,800);
+                         PlayGame();
+
 
 
                     }
                     if(x >283 && x<514 && y>330 && y<370)
                     {
                          turn=1;
-                         click=0;
-                         cleardevice();
+                         click=1;
+                         closegraph();
+                         initwindow(800,800);
                          menu();
 
                     }
@@ -410,7 +418,6 @@ void PlayGame()
         }
     }
 }
-
 
 bool moveIsValid (grid board, position moveFrom, position moveTo, int turn )
 {
