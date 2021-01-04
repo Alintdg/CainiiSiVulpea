@@ -373,7 +373,7 @@ void BotStoopid()
             {
 
                 for(i=0; i<8; i++)
-                    for(i=0; i<8; i++)
+                    for(j=0; j<8; j++)
                         if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
                             if(  board[i-1][j+1].celltype==0 )
                             {
