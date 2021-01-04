@@ -1,4 +1,4 @@
-include<stdio.h>
+#include<stdio.h>
 #include<graphics.h>
 #include<winbgim.h>
 #include<iostream>
@@ -158,26 +158,17 @@ void menu()
     int midx,x,y;
     setbkcolor(BLACK);
     cleardevice();
+    readimagefile("vulpea.jpg",0,0,800,800);
 
 
     setbkcolor(CYAN);
-    midx = getmaxx() / 2;
+    midx = getmaxx() / 2+100;
 
     settextstyle(10, HORIZ_DIR, 7);      //fontul si marimea tipul orizontal
     settextjustify(1,1);            //centrat
-    outtextxy(midx, 150, "CAINII SI VULPEA");        // x si y unde se va afisa stringul "..."
 
-    settextstyle(9, HORIZ_DIR, 6);
-    setbkcolor(RED);
-    outtextxy(midx, 300, "START");
 
-    settextstyle(9, HORIZ_DIR, 6);
-    setbkcolor(RED);
-    outtextxy(midx, 400, "RULES");
 
-    settextstyle(9, HORIZ_DIR, 6);
-    setbkcolor(RED);
-    outtextxy(midx, 500, " EXIT ");
 
     while(1)
     {
@@ -186,10 +177,10 @@ void menu()
             x=mousex();
             y=mousey();
             clearmouseclick(WM_LBUTTONDOWN);
-            if(x >275 && x<517 && y>258 && y<312)
+            if(x >508 && x<652 && y>255 && y<312)
                 ChooseMode();
 
-            if(x >290 && x<504 && y>458 && y<512)
+            if(x >515 && x<452 && y>446 && y<508)
                 exit(0);
         }
     }
@@ -202,17 +193,19 @@ void ChooseMode()
     setbkcolor(BLACK);
     cleardevice();
 
+    readimagefile("Doggo.jpg",0,0,800,800);
+
 
     settextstyle(8, HORIZ_DIR, 5);
-    setbkcolor(RED);
+    setbkcolor(BROWN);
     outtextxy(midx, 300, "PLAYER vs PLAYER");
 
     settextstyle(8, HORIZ_DIR, 5);
-    setbkcolor(RED);
+    setbkcolor(BROWN);
     outtextxy(midx, 400, "PLAYER vs COMPUTER");
 
     settextstyle(8, HORIZ_DIR, 5);
-    setbkcolor(RED);
+    setbkcolor(BROWN);
     outtextxy(midx, 500, "BACK");
 
     while(1)
@@ -228,10 +221,54 @@ void ChooseMode()
                 PlayGame();
 
             if(x >164 && x<633 && y>367 && y<412)
-                BotStoopid();
+                ChooseDifficulty();
 
             if(x >346 && x<452 && y>467 && y<512)
                 menu();
+
+
+        }
+    }
+
+}
+void ChooseDifficulty()
+{
+     int midx,x,y;
+    midx = getmaxx() / 2;
+    setbkcolor(BLACK);
+    cleardevice();
+
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 300, "EASY");
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 400, "HARD");
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 500, "BACK");
+
+    while(1)
+    {
+        if( ismouseclick(WM_LBUTTONDOWN) )
+        {
+            x=mousex();
+            y=mousey();
+            clearmouseclick(WM_LBUTTONDOWN);
+            cout<<x<<" "<<y<<endl;
+
+
+            if(x >190 && x<608 && y>267 && y<312)
+                BotStoopid();
+
+            //if(x >164 && x<633 && y>367 && y<412)
+
+
+            if(x >346 && x<452 && y>467 && y<512)
+                 ChooseMode();
 
 
         }
@@ -382,7 +419,7 @@ void BotStoopid()
                         if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
                             if(  board[i-1][j+1].celltype==0 && i-1>=0  && j+1<8 && j>=0 )
                             {
-                                                                            cout<<i<<" "<<j<<" "<<endl;
+
                                 board[i][j].celltype=0;
 
                                 setcolor(WHITE);
@@ -401,7 +438,7 @@ void BotStoopid()
                  {
 
                      board[i][j].celltype=0;
-                                                cout<<i<<" "<<j<<" "<<endl;
+
                      setcolor(WHITE);
                      setfillstyle(SOLID_FILL, WHITE );
                      circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
