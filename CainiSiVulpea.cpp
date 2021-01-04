@@ -5,6 +5,7 @@
 #include<conio.h>
 #define cols 8
 #define rows 8
+
 using namespace std;
 
 float l;
@@ -352,7 +353,8 @@ void getMoveToOnClick(int x1, int y1)
 
 void BotStoopid()
 {
-    int x,y,i,j;
+    int x,y,i,j,click=1;
+
 
 
     setbkcolor(DARKGRAY);
@@ -363,7 +365,7 @@ void BotStoopid()
     {
         if(turn==1)
             moveFox(board);
-        else if(turn==2)
+        if(turn==2)
         {
             int dogdrawn=0;
             bool moveDone=0;
@@ -372,10 +374,12 @@ void BotStoopid()
             while(!moveDone )
             {
 
-                for(i=0; i<8; i++)
-                    for(j=0; j<8; j++)
+                //for(i=0; i<8; i++)
+                    //for(j=0; j<8; j++)
+                    i=rand()%10-2;
+                    j=rand()%10-2;
                         if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
-                            if(  board[i-1][j+1].celltype==0 )
+                            if(  board[i-1][j+1].celltype==0 && i-1>=0  && j+1<8 )
                             {
 
                                 board[i][j].celltype=0;
@@ -385,18 +389,14 @@ void BotStoopid()
                                 circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
                                 floodfill(board[i][j].x+l/2,board[i][j].y+l/2,WHITE);
 
-
-                                // i-1;
-                                //j+1;
-
                                 drawDog(board, i-1, j+1);
                                 moveDone=1;
                                 dogdrawn=1;
                                 board[i-1][j+1].celltype=1;
-                                turn=1;
+
                             }
 
-                /*else if(  board[i-1][j-1].celltype==0 )
+                else if(  board[i-1][j-1].celltype==0 && i-1>=0  && j-1>=0  )
                  {
 
                      board[i][j].celltype=0;
@@ -406,20 +406,119 @@ void BotStoopid()
                      circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
                      floodfill(board[i][j].x+l/2,board[i][j].y+l/2,WHITE);
 
-                   //  i-1;
-                     // j-1;
 
                      drawDog(board, i-1, j-1);
                      moveDone=1;
                      dogdrawn=1;
                      board[i-1][j-1].celltype=1;
                  }
-                 */
+
 
 
             }
-            //turn=1;
+            turn=1;
 
+        }
+          if(didTheFoxWin(board))
+        {
+
+            click=0;
+            turn =0;
+            setcolor(RED);
+            setbkcolor(BLACK);
+            settextstyle(10, HORIZ_DIR, 9);
+            outtextxy(getmaxx()/2,getmaxy()/4,"THE FOX WON!");
+            setcolor(WHITE);
+            settextstyle(8, HORIZ_DIR, 5);
+            setbkcolor(RED);
+            outtextxy(getmaxx()/2, 300, "TRY AGAIN");
+            outtextxy(getmaxx()/2, 360, "MAIN MENU");
+            outtextxy(getmaxx()/2, 420, "QUIT GAME");
+            while(!click)
+            {
+                if( ismouseclick(WM_LBUTTONDOWN) )
+                {
+                    x=mousex();
+                    y=mousey();
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    if(x >283 && x<514 && y>270 && y<309)
+                    {
+
+                        turn=1;
+                        click=1;
+
+                        closegraph();
+                        initwindow(800,800);
+                        BotStoopid();
+
+
+                    }
+                    if(x >283 && x<514 && y>330 && y<370)
+                    {
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        menu();
+
+
+                    }
+                    if(x >283 && x<514 && y>360 && y<430)
+                        exit(0);
+                }
+
+
+            }
+
+        }
+        if(didTheDogwin(board))
+        {
+            click=0;
+            turn =0;
+            setcolor(GREEN);
+            setbkcolor(BLACK);
+            settextstyle(10, HORIZ_DIR, 9);
+            outtextxy(getmaxx()/2,getmaxy()/4,"THE DOGS WON!");
+            setcolor(WHITE);
+            settextstyle(8, HORIZ_DIR, 5);
+            setbkcolor(GREEN);
+            outtextxy(getmaxy()/2, 300, "TRY AGAIN");
+            outtextxy(getmaxy()/2, 360, "MAIN MENU");
+            outtextxy(getmaxy()/2, 420, "QUIT GAME");
+            while(!click)
+            {
+                if( ismouseclick(WM_LBUTTONDOWN) )
+                {
+                    x=mousex();
+                    y=mousey();
+                    clearmouseclick(WM_LBUTTONDOWN);
+                    if(x >283 && x<514 && y>270 && y<309)
+                    {
+
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        BotStoopid();
+
+
+
+                    }
+                    if(x >283 && x<514 && y>330 && y<370)
+                    {
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        menu();
+
+                    }
+                    if(x >283 && x<514 && y>360 && y<430)
+                        exit(0);
+                }
+
+
+            }
         }
 
     }
