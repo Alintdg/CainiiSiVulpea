@@ -27,6 +27,12 @@ void getMoveFromOnClick(int x1, int y1);
 
 void getMoveToOnClick(int x1, int y1);
 
+void ChooseMode();
+
+void ChooseDifficulty();
+
+void BotStoopid();
+
 void readMatrix (grid board);
 
 void drawFox(grid board,int i,int j);
@@ -166,7 +172,11 @@ void menu()
 
     settextstyle(9, HORIZ_DIR, 6);
     setbkcolor(RED);
-    outtextxy(midx, 400, " EXIT ");
+    outtextxy(midx, 400, "RULES");
+
+    settextstyle(9, HORIZ_DIR, 6);
+    setbkcolor(RED);
+    outtextxy(midx, 500, " EXIT ");
 
     while(1)
     {
@@ -175,18 +185,58 @@ void menu()
             x=mousex();
             y=mousey();
             clearmouseclick(WM_LBUTTONDOWN);
-            if(x >240 && x<467 && y>258 && y<312)
-            {
-                cleardevice();
-                PlayGame();
-            }
-            if(x >240 && x<467 && y>358 && y<412)
+            if(x >275 && x<517 && y>258 && y<312)
+                ChooseMode();
+
+            if(x >290 && x<504 && y>458 && y<512)
                 exit(0);
         }
     }
 }
 
+void ChooseMode()
+{
+    int midx,x,y;
+    midx = getmaxx() / 2;
+    setbkcolor(BLACK);
+    cleardevice();
 
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 300, "PLAYER vs PLAYER");
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 400, "PLAYER vs COMPUTER");
+
+    settextstyle(8, HORIZ_DIR, 5);
+    setbkcolor(RED);
+    outtextxy(midx, 500, "BACK");
+
+    while(1)
+    {
+        if( ismouseclick(WM_LBUTTONDOWN) )
+        {
+            x=mousex();
+            y=mousey();
+            clearmouseclick(WM_LBUTTONDOWN);
+
+
+            if(x >190 && x<608 && y>267 && y<312)
+                PlayGame();
+
+            if(x >164 && x<633 && y>367 && y<412)
+                BotStoopid();
+
+            if(x >346 && x<452 && y>467 && y<512)
+                menu();
+
+
+        }
+    }
+
+}
 void moveFox(grid board)
 {
     int x,y;
@@ -300,12 +350,86 @@ void getMoveToOnClick(int x1, int y1)
     moveTo.i=(y1-100)/l;
 }
 
+void BotStoopid()
+{
+    int x,y,i,j;
+
+
+    setbkcolor(DARKGRAY);
+    cleardevice();
+    readMatrix(board);
+    drawBoard(board);
+    while(turn)
+    {
+        if(turn==1)
+            moveFox(board);
+        else if(turn==2)
+        {
+            int dogdrawn=0;
+            bool moveDone=0;
+            setcolor(GREEN);
+            outtextxy(getmaxx()/2,l/2,"DOG   MOVES");
+            while(!moveDone )
+            {
+
+                for(i=0; i<8; i++)
+                    for(i=0; i<8; i++)
+                        if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
+                            if(  board[i-1][j+1].celltype==0 )
+                            {
+
+                                board[i][j].celltype=0;
+
+                                setcolor(WHITE);
+                                setfillstyle(SOLID_FILL, WHITE );
+                                circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
+                                floodfill(board[i][j].x+l/2,board[i][j].y+l/2,WHITE);
+
+
+                                // i-1;
+                                //j+1;
+
+                                drawDog(board, i-1, j+1);
+                                moveDone=1;
+                                dogdrawn=1;
+                                board[i-1][j+1].celltype=1;
+                                turn=1;
+                            }
+
+                /*else if(  board[i-1][j-1].celltype==0 )
+                 {
+
+                     board[i][j].celltype=0;
+
+                     setcolor(WHITE);
+                     setfillstyle(SOLID_FILL, WHITE );
+                     circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
+                     floodfill(board[i][j].x+l/2,board[i][j].y+l/2,WHITE);
+
+                   //  i-1;
+                     // j-1;
+
+                     drawDog(board, i-1, j-1);
+                     moveDone=1;
+                     dogdrawn=1;
+                     board[i-1][j-1].celltype=1;
+                 }
+                 */
+
+
+            }
+            //turn=1;
+
+        }
+
+    }
+}
 
 
 void PlayGame()
 {
 
-    int x,y,click=0;
+    int x,y,click=1;
 
     setbkcolor(DARKGRAY);
     cleardevice();
@@ -320,7 +444,7 @@ void PlayGame()
         if(didTheFoxWin(board))
         {
 
-
+            click=0;
             turn =0;
             setcolor(RED);
             setbkcolor(BLACK);
@@ -342,21 +466,21 @@ void PlayGame()
                     if(x >283 && x<514 && y>270 && y<309)
                     {
 
-                         turn=1;
-                         click=1;
-                         closegraph();
-                         initwindow(800,800);
-                         PlayGame();
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        PlayGame();
 
 
                     }
                     if(x >283 && x<514 && y>330 && y<370)
                     {
-                         turn=1;
-                         click=0;
-                         closegraph();
-                         initwindow(800,800);
-                         menu();
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        menu();
 
 
                     }
@@ -370,6 +494,7 @@ void PlayGame()
         }
         if(didTheDogwin(board))
         {
+            click=0;
             turn =0;
             setcolor(GREEN);
             setbkcolor(BLACK);
@@ -381,7 +506,7 @@ void PlayGame()
             outtextxy(getmaxy()/2, 300, "TRY AGAIN");
             outtextxy(getmaxy()/2, 360, "MAIN MENU");
             outtextxy(getmaxy()/2, 420, "QUIT GAME");
-           while(!click)
+            while(!click)
             {
                 if( ismouseclick(WM_LBUTTONDOWN) )
                 {
@@ -391,22 +516,22 @@ void PlayGame()
                     if(x >283 && x<514 && y>270 && y<309)
                     {
 
-                         turn=1;
-                         click=1;
-                         closegraph();
-                         initwindow(800,800);
-                         PlayGame();
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        PlayGame();
 
 
 
                     }
                     if(x >283 && x<514 && y>330 && y<370)
                     {
-                         turn=1;
-                         click=1;
-                         closegraph();
-                         initwindow(800,800);
-                         menu();
+                        turn=1;
+                        click=1;
+                        closegraph();
+                        initwindow(800,800);
+                        menu();
 
                     }
                     if(x >283 && x<514 && y>360 && y<430)
