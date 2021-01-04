@@ -1,4 +1,4 @@
-#include<stdio.h>
+include<stdio.h>
 #include<graphics.h>
 #include<winbgim.h>
 #include<iostream>
@@ -378,10 +378,11 @@ void BotStoopid()
                     //for(j=0; j<8; j++)
                     i=rand()%10-2;
                     j=rand()%10-2;
-                        if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
-                            if(  board[i-1][j+1].celltype==0 && i-1>=0  && j+1<8 )
-                            {
 
+                        if(  ( board[i][j].celltype==1 && !dogdrawn)   &&   ( board[i-1][j+1].celltype==0 || board[i-1][j-1].celltype==0 )   )
+                            if(  board[i-1][j+1].celltype==0 && i-1>=0  && j+1<8 && j>=0 )
+                            {
+                                                                            cout<<i<<" "<<j<<" "<<endl;
                                 board[i][j].celltype=0;
 
                                 setcolor(WHITE);
@@ -400,7 +401,7 @@ void BotStoopid()
                  {
 
                      board[i][j].celltype=0;
-
+                                                cout<<i<<" "<<j<<" "<<endl;
                      setcolor(WHITE);
                      setfillstyle(SOLID_FILL, WHITE );
                      circle(board[i][j].x+l/2,board[i][j].y+l/2,l/4);
