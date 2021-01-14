@@ -1,0 +1,37 @@
+      
+VIDEO YTB PREZENTARE:   https://www.youtube.com/watch?v=gHGCr3oCHs4
+
+
+
+ Potop Cosmin:
+	Structurarea elementelor folosite in joc
+	Desenarea tablei si pieselor.
+	Matricea tablei ,asocierea ei cu coordonatele ferestrei si cu piesele din joc.
+	Schimbarea tipului pieselor  ( din menu-options)
+	Conditie mutare valida.
+	Afisarea tipului de piesa care trebuie mutata. (turn)
+	Conditie castig vulpe/caine.
+	Save and Load game.
+
+       Jufa Alin:
+	Mutarea pieselor folosind mouse ul  (desenand piesa in locul indicat de mouse si acoperind o din locul in 
+				        care se afla) 
+	Grafica in photoshop 
+	Menu-urile 
+	Mesajul de afisare pentru victorie cu (try again,menu,exit)
+	PLAYER vs COMPUTER - Easy mode  (mutari random posibile)
+ 			       -Hard mode (strategii in functie de mutarile vulpei)
+	
+	
+
+       Colaborare:
+	-Actualizarea matricei cand mutam o piesa cu mouse ul, folosind functii care convertesc coordonatele mouse ului 
+	intr un i si j pentru a identifica mutarea valida.
+	-Amandoi am desenat o tabla dar am pastrat versiunea facuta de Cosmin deoarece este facuta folosinduse de o matrice.	
+ 	-Buguri , probleme in program.
+	-Colaborarea a fost reala pe tot parcursul proiectului intrucat a trebuit sa ne intelegem codul unul altuia pentru a continua jocul .
+ 	
+=>Comunicarea s a realizat pe discord, messenger.
+=>Am lucrat in mare parte pe github si google drive (pentru actualizari)
+ 	
+    	
