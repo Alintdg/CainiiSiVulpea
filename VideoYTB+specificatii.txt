@@ -27,7 +27,7 @@ VIDEO YTB PREZENTARE:   https://www.youtube.com/watch?v=gHGCr3oCHs4
        Colaborare:
 	-Actualizarea matricei cand mutam o piesa cu mouse ul, folosind functii care convertesc coordonatele mouse ului 
 	intr un i si j pentru a identifica mutarea valida.
-	-Amandoi am desenat o tabla dar am pastrat versiunea facuta de Cosmin deoarece este facuta folosinduse de o matrice.	
+	-Amandoi am desenat o tabla dar am pastrat versiunea facuta de Cosmin deoarece este facuta folosindu se de o matrice.	
  	-Buguri , probleme in program.
 	-Colaborarea a fost reala pe tot parcursul proiectului intrucat a trebuit sa ne intelegem codul unul altuia pentru a continua jocul .
  	
